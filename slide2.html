@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Introduction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .slide-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            perspective: 800px;
+        }
+
+        .slide-btn:active {
+            transform: translateY(-50%) scale(0.95) rotateX(10deg);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide-btn-left {
+            left: 20px;
+            background: linear-gradient(145deg, #3498DB, #2980B9);
+        }
+
+        .slide-btn-right {
+            right: 20px;
+            background: linear-gradient(145deg, #E74C3C, #C0392B);
+        }
+    </style>
+</head>
+
+<body style="margin:0;padding:0;overflow:hidden;">
+    <div class="flex flex-col justify-center w-screen h-screen overflow-hidden"
+        style="padding:48px;background:linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%);">
+        <div class="flex items-center mb-12 mainContentChild">
+            <div class="w-2 h-16" style="background:linear-gradient(180deg,#F89820,#5382A1);margin-right:24px;"></div>
+            <h1 class="text-5xl font-bold" style="color:#2c3e50;">Introduction</h1>
+        </div>
+        <div class="grid gap-6 mainContentChild">
+            <div class="flex items-start p-6 bg-white rounded-xl shadow-lg">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full mr-6"
+                    style="background:linear-gradient(135deg,#F89820,#ff6b35);"><i
+                        class="fas fa-code text-white text-2xl"></i></div>
+                <div class="flex-1">
+                    <p class="text-2xl font-semibold mb-2" style="color:#2c3e50;">Object-Oriented Programming</p>
+                    <p class="text-xl" style="color:#6c757d;">Java is an object-oriented programming language with
+                        robust inheritance mechanisms</p>
+                </div>
+            </div>
+            <div class="flex items-start p-6 bg-white rounded-xl shadow-lg">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full mr-6"
+                    style="background:linear-gradient(135deg,#5382A1,#3a5f7d);"><i
+                        class="fas fa-sitemap text-white text-2xl"></i></div>
+                <div class="flex-1">
+                    <p class="text-2xl font-semibold mb-2" style="color:#2c3e50;">Universal Inheritance</p>
+                    <p class="text-xl" style="color:#6c757d;">Every Java class inherits from <span
+                            class="font-mono font-bold" style="color:#F89820;">java.lang.Object</span></p>
+                </div>
+            </div>
+            <div class="flex items-start p-6 bg-white rounded-xl shadow-lg">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full mr-6"
+                    style="background:linear-gradient(135deg,#F89820,#5382A1);"><i
+                        class="fas fa-balance-scale text-white text-2xl"></i></div>
+                <div class="flex-1">
+                    <p class="text-2xl font-semibold mb-2" style="color:#2c3e50;">Critical Methods</p>
+                    <p class="text-xl" style="color:#6c757d;"><span class="font-mono font-bold"
+                            style="color:#5382A1;">equals()</span> and <span class="font-mono font-bold"
+                            style="color:#5382A1;">hashCode()</span> are crucial for object comparison</p>
+                </div>
+            </div>
+            <div class="flex items-start p-6 bg-white rounded-xl shadow-lg">
+                <div class="flex items-center justify-center w-16 h-16 rounded-full mr-6"
+                    style="background:linear-gradient(135deg,#dc3545,#c82333);"><i
+                        class="fas fa-exclamation-triangle text-white text-2xl"></i></div>
+                <div class="flex-1">
+                    <p class="text-2xl font-semibold mb-2" style="color:#2c3e50;">Implementation Risks</p>
+                    <p class="text-xl" style="color:#6c757d;">Incorrect implementation leads to serious logical bugs and
+                        system failures</p>
+                </div>
+            </div>
+        </div>
+        <!-- 3D Slide Buttons -->
+        <button class="slide-btn slide-btn-left" onclick="prevSlide()">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="slide-btn slide-btn-right" onclick="nextSlide()">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script>
+        const mainContentChild = document.querySelectorAll('.mainContentChild');
+        mainContentChild.forEach((card, index) => {
+            const delay = index * 0.3;
+            const {
+                opacity
+            } = getComputedStyle(card);
+            gsap.fromTo(card, {
+                opacity: 0,
+                x: 800,
+                y: 0,
+                z: -1200,
+                scale: 0.3,
+                rotationX: 45,
+                rotationY: -30,
+                rotationZ: 15
+            }, {
+                opacity,
+                x: 0,
+                y: 0,
+                z: 0,
+                scale: 1,
+                rotationX: 0,
+                rotationY: 0,
+                rotationZ: 0,
+                duration: 2,
+                delay,
+                ease: "power3.out",
+                onStart: () => {
+                    card.style.transition = "none";
+                },
+                onComplete: () => {
+                    card.style.removeProperty('transition');
+                }
+            });
+        });
+
+        // Placeholder slide functions
+        function prevSlide() {
+            window.location.href = 'slide1.html'; // Replace with your logic
+        }
+        function nextSlide() {
+            window.location.href = 'slide3.html'; // Replace with your logic
+        }
+    </script>
+</body>
+
+</html>

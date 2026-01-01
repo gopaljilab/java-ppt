@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>hashCode() Contract Rules</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .slide-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            perspective: 800px;
+        }
+
+        .slide-btn:active {
+            transform: translateY(-50%) scale(0.95) rotateX(10deg);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide-btn-left {
+            left: 20px;
+            background: linear-gradient(145deg, #3498DB, #2980B9);
+        }
+
+        .slide-btn-right {
+            right: 20px;
+            background: linear-gradient(145deg, #E74C3C, #C0392B);
+        }
+    </style>
+</head>
+
+<body style="margin:0;padding:0;overflow:hidden;">
+    <div class="flex flex-col justify-center w-screen h-screen overflow-hidden"
+        style="padding:48px;background:#f8f9fa;">
+        <div class="mb-10 mainContentChild">
+            <h1 class="text-5xl font-bold" style="color:#2c3e50;"><span class="font-mono"
+                    style="color:#5382A1;">hashCode()</span> Contract Rules</h1>
+        </div>
+        <div class="grid grid-cols-2 gap-8">
+            <div class="p-8 bg-white rounded-2xl shadow-xl mainContentChild">
+                <div class="flex items-center mb-5">
+                    <div class="w-16 h-16 rounded-xl flex items-center justify-center mr-4"
+                        style="background:linear-gradient(135deg,#28a745,#218838);"><i
+                            class="fas fa-check-double text-white text-2xl"></i></div>
+                    <h2 class="text-3xl font-bold" style="color:#2c3e50;">Rule 1</h2>
+                </div>
+                <p class="text-xl font-semibold mb-3" style="color:#28a745;">Equal Objects → Same Hash</p>
+                <p class="text-lg" style="color:#6c757d;">If two objects are equal according to <span
+                        class="font-mono font-semibold" style="color:#F89820;">equals()</span>, they
+                    <strong>must</strong> have the same <span class="font-mono font-semibold"
+                        style="color:#5382A1;">hashCode()</span>
+                </p>
+                <div class="mt-4 p-3 rounded-lg font-mono text-sm" style="background:#2c3e50;color:#28a745;">a.equals(b)
+                    ⇒ a.hashCode() == b.hashCode()</div>
+            </div>
+            <div class="p-8 bg-white rounded-2xl shadow-xl mainContentChild">
+                <div class="flex items-center mb-5">
+                    <div class="w-16 h-16 rounded-xl flex items-center justify-center mr-4"
+                        style="background:linear-gradient(135deg,#F89820,#ff6b35);"><i
+                            class="fas fa-not-equal text-white text-2xl"></i></div>
+                    <h2 class="text-3xl font-bold" style="color:#2c3e50;">Rule 2</h2>
+                </div>
+                <p class="text-xl font-semibold mb-3" style="color:#F89820;">Same Hash ≠ Equality</p>
+                <p class="text-lg" style="color:#6c757d;">Same <span class="font-mono font-semibold"
+                        style="color:#5382A1;">hashCode()</span> does <strong>NOT</strong> guarantee objects are equal
+                </p>
+                <div class="mt-4 p-3 rounded-lg font-mono text-sm" style="background:#2c3e50;color:#F89820;">
+                    a.hashCode() == b.hashCode() ⇏ a.equals(b)</div>
+            </div>
+            <div class="p-8 bg-white rounded-2xl shadow-xl mainContentChild">
+                <div class="flex items-center mb-5">
+                    <div class="w-16 h-16 rounded-xl flex items-center justify-center mr-4"
+                        style="background:linear-gradient(135deg,#5382A1,#3a5f7d);"><i
+                            class="fas fa-random text-white text-2xl"></i></div>
+                    <h2 class="text-3xl font-bold" style="color:#2c3e50;">Rule 3</h2>
+                </div>
+                <p class="text-xl font-semibold mb-3" style="color:#5382A1;">Collisions Allowed</p>
+                <p class="text-lg" style="color:#6c757d;">Hash collisions are permitted. Different objects can have the
+                    same hash value</p>
+                <div class="mt-4 p-3 rounded-lg font-mono text-sm" style="background:#2c3e50;color:#5382A1;">Multiple
+                    objects → Same bucket</div>
+            </div>
+            <div class="p-8 bg-white rounded-2xl shadow-xl mainContentChild">
+                <div class="flex items-center mb-5">
+                    <div class="w-16 h-16 rounded-xl flex items-center justify-center mr-4"
+                        style="background:linear-gradient(135deg,#6f42c1,#5a32a3);"><i
+                            class="fas fa-lock text-white text-2xl"></i></div>
+                    <h2 class="text-3xl font-bold" style="color:#2c3e50;">Rule 4</h2>
+                </div>
+                <p class="text-xl font-semibold mb-3" style="color:#6f42c1;">Consistency Required</p>
+                <p class="text-lg" style="color:#6c757d;"><span class="font-mono font-semibold"
+                        style="color:#5382A1;">hashCode()</span> must remain consistent during object lifetime if data
+                    unchanged</p>
+                <div class="mt-4 p-3 rounded-lg font-mono text-sm" style="background:#2c3e50;color:#6f42c1;">Same object
+                    → Same hash (always)</div>
+            </div>
+        </div>
+        <!-- 3D Slide Buttons -->
+        <button class="slide-btn slide-btn-left" onclick="prevSlide()">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="slide-btn slide-btn-right" onclick="nextSlide()">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script>
+        const mainContentChild = document.querySelectorAll('.mainContentChild');
+        mainContentChild.forEach((card, index) => {
+            const delay = index * 0.3;
+            const {
+                opacity
+            } = getComputedStyle(card);
+            gsap.fromTo(card, {
+                opacity: 0,
+                x: 0,
+                y: 650,
+                z: -1400,
+                scale: 0.15,
+                rotationX: 70,
+                rotationY: 0,
+                rotationZ: index % 2 === 0 ? 25 : -25
+            }, {
+                opacity,
+                x: 0,
+                y: 0,
+                z: 0,
+                scale: 1,
+                rotationX: 0,
+                rotationY: 0,
+                rotationZ: 0,
+                duration: 2.2,
+                delay,
+                ease: "power3.out",
+                onStart: () => {
+                    card.style.transition = "none";
+                },
+                onComplete: () => {
+                    card.style.removeProperty('transition');
+                }
+            });
+        });
+
+        // Placeholder slide functions
+        function prevSlide() {
+            window.location.href = 'slide6.html'; // Replace with your logic
+        }
+        function nextSlide() {
+            window.location.href = 'slide8.html'; // Replace with your logic
+        }
+    </script>
+</body>
+
+</html>

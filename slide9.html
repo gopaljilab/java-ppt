@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Real-World Bug Example</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            background-color: #ffffff;
+            /* white background */
+        }
+
+        .slide-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            perspective: 800px;
+        }
+
+        .slide-btn:active {
+            transform: translateY(-50%) scale(0.95) rotateX(10deg);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide-btn-left {
+            left: 20px;
+            background: linear-gradient(145deg, #3498DB, #2980B9);
+        }
+
+        .slide-btn-right {
+            right: 20px;
+            background: linear-gradient(145deg, #E74C3C, #C0392B);
+        }
+    </style>
+</head>
+
+<body style="margin:0;padding:0;overflow:hidden;">
+    <div class="flex flex-col justify-center items-center w-screen h-screen overflow-hidden"
+        style="padding:48px;background:#ffffff;">
+
+        <div class="w-full h-full flex flex-col">
+            <div class="mb-8 text-center">
+                <h1 class="text-5xl font-bold" style="color:#2c3e50;font-family:'Inter',sans-serif;">Real-World Bug
+                    Example</h1>
+                <div class="w-24 h-1 mt-4 mx-auto" style="background:#E74C3C;"></div>
+            </div>
+
+            <div class="flex-1 flex gap-12 items-center">
+                <!-- Left Box -->
+                <div class="flex-1 flex flex-col items-center justify-center"
+                    style="background:rgba(0,0,0,0.03);border-radius:16px;padding:40px;border:2px solid rgba(0,0,0,0.05);">
+                    <div class="relative w-full" style="max-width:400px;">
+                        <div class="text-center mb-6">
+                            <i class="fas fa-database text-6xl" style="color:#3498DB;"></i>
+                            <div class="mt-3 text-xl font-bold"
+                                style="color:#F1C40F;font-family:'Courier New',monospace;">HashMap</div>
+                        </div>
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="text-center" style="flex:1;">
+                                <i class="fas fa-cube text-4xl" style="color:#F1C40F;"></i>
+                                <div class="mt-2 text-sm" style="color:#2c3e50;font-family:'Courier New',monospace;">
+                                    Object</div>
+                            </div>
+                            <div class="flex flex-col items-center" style="flex:1;">
+                                <i class="fas fa-arrow-right text-2xl mb-2" style="color:#2ECC71;"></i>
+                                <div class="text-xs" style="color:#2ECC71;font-family:'Courier New',monospace;">put()
+                                </div>
+                            </div>
+                            <div class="text-center" style="flex:1;">
+                                <i class="fas fa-database text-4xl" style="color:#3498DB;"></i>
+                                <div class="mt-2 text-sm" style="color:#3498DB;font-family:'Courier New',monospace;">
+                                    Stored</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="text-center" style="flex:1;">
+                                <i class="fas fa-search text-4xl" style="color:#2c3e50;"></i>
+                                <div class="mt-2 text-sm" style="color:#2c3e50;font-family:'Courier New',monospace;">
+                                    Lookup</div>
+                            </div>
+                            <div class="flex flex-col items-center" style="flex:1;">
+                                <i class="fas fa-arrow-right text-2xl mb-2" style="color:#E74C3C;"></i>
+                                <div class="text-xs" style="color:#E74C3C;font-family:'Courier New',monospace;">get()
+                                </div>
+                            </div>
+                            <div class="text-center" style="flex:1;">
+                                <i class="fas fa-times-circle text-4xl" style="color:#E74C3C;"></i>
+                                <div class="mt-2 text-sm" style="color:#E74C3C;font-family:'Courier New',monospace;">
+                                    null</div>
+                            </div>
+                        </div>
+                        <div class="text-center p-4 rounded-lg"
+                            style="background:rgba(243,156,18,0.2);border:1px solid #F39C12;">
+                            <i class="fas fa-exclamation-triangle text-2xl" style="color:#F39C12;"></i>
+                            <div class="mt-2 text-sm font-bold" style="color:#F39C12;">Retrieval Failed</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Items -->
+                <div class="flex-1 flex flex-col justify-center" style="padding-left:20px;">
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <i class="fas fa-check-circle text-2xl mt-1" style="color:#2ECC71;"></i>
+                            <div>
+                                <div class="text-xl font-semibold"
+                                    style="color:#2c3e50;font-family:'Inter',sans-serif;">Object stored in HashMap</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <i class="fas fa-check-circle text-2xl mt-1" style="color:#2ECC71;"></i>
+                            <div>
+                                <div class="text-xl font-semibold"
+                                    style="color:#2c3e50;font-family:'Inter',sans-serif;"><span
+                                        style="font-family:'Courier New',monospace;color:#3498DB;">equals()</span>
+                                    overridden</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <i class="fas fa-times-circle text-2xl mt-1" style="color:#E74C3C;"></i>
+                            <div>
+                                <div class="text-xl font-semibold"
+                                    style="color:#2c3e50;font-family:'Inter',sans-serif;"><span
+                                        style="font-family:'Courier New',monospace;color:#E74C3C;">hashCode()</span> not
+                                    overridden</div>
+                            </div>
+                        </div>
+                        <div class="w-full h-px my-4" style="background:rgba(0,0,0,0.1);"></div>
+                        <div class="flex items-start gap-4">
+                            <i class="fas fa-exclamation-triangle text-2xl mt-1" style="color:#F39C12;"></i>
+                            <div>
+                                <div class="text-xl font-bold" style="color:#E74C3C;font-family:'Inter',sans-serif;">
+                                    Result: Object cannot be retrieved</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <i class="fas fa-bug text-2xl mt-1" style="color:#E74C3C;"></i>
+                            <div>
+                                <div class="text-xl font-bold" style="color:#E74C3C;font-family:'Inter',sans-serif;">
+                                    Application behaves incorrectly</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- 3D Slide Buttons -->
+        <button class="slide-btn slide-btn-left" onclick="prevSlide()">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="slide-btn slide-btn-right" onclick="nextSlide()">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const title = document.querySelector('h1');
+            const titleUnderline = document.querySelector('.w-24');
+            const leftBox = document.querySelector('.flex-1.flex.flex-col.items-center');
+            const rightItems = document.querySelectorAll('.space-y-6>div');
+            const tl = gsap.timeline();
+            tl.fromTo(title, { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
+                .fromTo(titleUnderline, { opacity: 0, width: 0 }, { opacity: 1, width: 96, duration: 0.6, ease: 'power2.out' }, '-=0.4')
+                .fromTo(leftBox, { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4')
+                .fromTo(rightItems, { opacity: 0, x: 50 }, { opacity: 1, x: 0, duration: 0.6, stagger: 0.15, ease: 'power2.out' }, '-=0.6');
+            const icons = document.querySelectorAll('.fa-database, .fa-cube, .fa-search');
+            gsap.fromTo(icons, { scale: 0.8 }, { scale: 1.1, duration: 1.5, repeat: -1, yoyo: true, ease: 'sine.inOut', stagger: 0.3 });
+        });
+
+        // Placeholder slide functions
+        function prevSlide() {
+            window.location.href = 'slide8.html'; // Replace with your logic
+        }
+        function nextSlide() {
+            window.location.href = 'slide10.html'; // Replace with your logic
+        }
+    </script>
+</body>
+
+</html>

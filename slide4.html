@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>What is equals()?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .slide-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            perspective: 800px;
+        }
+
+        .slide-btn:active {
+            transform: translateY(-50%) scale(0.95) rotateX(10deg);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide-btn-left {
+            left: 20px;
+            background: linear-gradient(145deg, #3498DB, #2980B9);
+        }
+
+        .slide-btn-right {
+            right: 20px;
+            background: linear-gradient(145deg, #E74C3C, #C0392B);
+        }
+    </style>
+</head>
+
+<body style="margin:0;padding:0;overflow:hidden;">
+    <div class="flex flex-col justify-center w-screen h-screen overflow-hidden"
+        style="padding:48px;background:linear-gradient(135deg,#f8f9fa 0%,#ffffff 100%);">
+        <div class="mb-10 mainContentChild">
+            <h1 class="text-5xl font-bold" style="color:#2c3e50;">What is <span class="font-mono"
+                    style="color:#F89820;">equals()</span>?</h1>
+        </div>
+        <div class="flex gap-10 items-center">
+            <div class="flex-1 space-y-5 mainContentChild">
+                <div class="p-5 bg-white rounded-xl shadow-md border-l-4" style="border-color:#F89820;">
+                    <div class="flex items-center mb-3"><i class="fas fa-equals text-2xl mr-3"
+                            style="color:#F89820;"></i>
+                        <p class="text-2xl font-bold" style="color:#2c3e50;">Logical Equality</p>
+                    </div>
+                    <p class="text-lg" style="color:#6c757d;">Used to check <strong>logical equality</strong> between
+                        two objects based on their content</p>
+                </div>
+                <div class="p-5 bg-white rounded-xl shadow-md border-l-4" style="border-color:#5382A1;">
+                    <div class="flex items-center mb-3"><i class="fas fa-not-equal text-2xl mr-3"
+                            style="color:#5382A1;"></i>
+                        <p class="text-2xl font-bold" style="color:#2c3e50;">Different from ==</p>
+                    </div>
+                    <p class="text-lg" style="color:#6c757d;"><span class="font-mono font-semibold"
+                            style="color:#dc3545;">==</span> compares references (memory addresses), while <span
+                            class="font-mono font-semibold" style="color:#28a745;">equals()</span> compares content</p>
+                </div>
+                <div class="p-5 bg-white rounded-xl shadow-md border-l-4" style="border-color:#28a745;">
+                    <div class="flex items-center mb-3"><i class="fas fa-edit text-2xl mr-3" style="color:#28a745;"></i>
+                        <p class="text-2xl font-bold" style="color:#2c3e50;">Override Capability</p>
+                    </div>
+                    <p class="text-lg" style="color:#6c757d;">Can be overridden to compare object data based on business
+                        logic</p>
+                </div>
+                <div class="p-5 bg-white rounded-xl shadow-md border-l-4" style="border-color:#6f42c1;">
+                    <div class="flex items-center mb-3"><i class="fas fa-lightbulb text-2xl mr-3"
+                            style="color:#6f42c1;"></i>
+                        <p class="text-2xl font-bold" style="color:#2c3e50;">Practical Example</p>
+                    </div>
+                    <p class="text-lg" style="color:#6c757d;">Two users with the same ID should be considered equal</p>
+                </div>
+            </div>
+            <div class="flex-1 mainContentChild">
+                <div class="p-6 rounded-xl" style="background:#2c3e50;">
+                    <div class="flex items-center mb-4"><i class="fas fa-code text-2xl mr-3" style="color:#F89820;"></i>
+                        <p class="text-xl font-bold text-white">Code Example</p>
+                    </div>
+                    <pre class="text-base font-mono text-white leading-relaxed"><span style="color:#F89820;">User</span> user1 = <span style="color:#5382A1;">new</span> <span style="color:#F89820;">User</span>(<span style="color:#28a745;">"101"</span>, <span style="color:#28a745;">"Alice"</span>);
+<span style="color:#F89820;">User</span> user2 = <span style="color:#5382A1;">new</span> <span style="color:#F89820;">User</span>(<span style="color:#28a745;">"101"</span>, <span style="color:#28a745;">"Alice"</span>);
+
+<span style="color:#6c757d;">// Reference comparison</span>
+user1 == user2  <span style="color:#dc3545;">// false</span>
+
+<span style="color:#6c757d;">// Logical comparison</span>
+user1.<span style="color:#F89820;">equals</span>(user2)  <span style="color:#28a745;">// true</span></pre>
+                    <div class="mt-6 p-4 rounded-lg" style="background:rgba(248,152,32,0.1);border:2px solid #F89820;">
+                        <p class="text-sm font-semibold mb-2" style="color:#F89820;"><i
+                                class="fas fa-info-circle mr-2"></i>Key Insight</p>
+                        <p class="text-sm text-white">Both users have ID "101", so they are logically equal even though
+                            they are different objects in memory</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 3D Slide Buttons -->
+        <button class="slide-btn slide-btn-left" onclick="prevSlide()">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="slide-btn slide-btn-right" onclick="nextSlide()">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script>
+        const mainContentChild = document.querySelectorAll('.mainContentChild');
+        mainContentChild.forEach((card, index) => {
+            const delay = index * 0.35;
+            const {
+                opacity
+            } = getComputedStyle(card);
+            gsap.fromTo(card, {
+                opacity: 0,
+                x: index % 2 === 0 ? -650 : 650,
+                y: 0,
+                z: -1100,
+                scale: 0.25,
+                rotationX: 25,
+                rotationY: index % 2 === 0 ? 40 : -40,
+                rotationZ: 10
+            }, {
+                opacity,
+                x: 0,
+                y: 0,
+                z: 0,
+                scale: 1,
+                rotationX: 0,
+                rotationY: 0,
+                rotationZ: 0,
+                duration: 2.1,
+                delay,
+                ease: "power3.out",
+                onStart: () => {
+                    card.style.transition = "none";
+                },
+                onComplete: () => {
+                    card.style.removeProperty('transition');
+                }
+            });
+        });
+
+        // Placeholder slide functions
+        function prevSlide() {
+            window.location.href = 'slide3.html'; // Replace with your logic
+        }
+        function nextSlide() {
+            window.location.href = 'slide5.html'; // Replace with your logic
+        }
+    </script>
+</body>
+
+</html>
